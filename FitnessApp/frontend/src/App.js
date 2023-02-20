@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import Nav from './components/Nav.js';
+import Search from './components/Search.js';
 
 function App() {
+
+  const sppontacAuth = "28e7c85c777e479abf6e8145a94ffece"
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav></Nav>
+      <Search></Search>
     </div>
   );
 }
