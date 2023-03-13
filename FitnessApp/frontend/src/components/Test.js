@@ -29,10 +29,11 @@ function Test(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {nutrientRows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell align="right">{row.value}</TableCell>
+          {console.log(props.product)}
+          {props.product.nutrition.nutrients.map((vitamin) => (
+            <TableRow key={vitamin.name}>
+              <TableCell>{vitamin.name}</TableCell>
+              <TableCell align="right">{vitamin.amount +' ' +vitamin.unit}</TableCell>
             </TableRow>
           ))}
         </TableBody>

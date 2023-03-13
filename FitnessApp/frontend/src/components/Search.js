@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 
 function InputWithButton(props) {
   const [searchInput, setSearchInput] = useState("");
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(["Products", 1]);
 
   const handleListItemClick = (event, index, name) => {

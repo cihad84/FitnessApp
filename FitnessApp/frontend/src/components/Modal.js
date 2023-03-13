@@ -34,7 +34,9 @@ export default function BasicModal(props) {
         return response.json();
       })
       .then((results) => {
-        props.setProduct(results.nutrition);
+        console.log(results);
+        console.log(results.nutrition.nutrients[1].name)
+        props.setProduct(results);
       })
       .catch((error) => console.log(error));
   };
