@@ -34,9 +34,12 @@ export default function BasicModal(props) {
         return response.json();
       })
       .then((results) => {
-        console.log(results);
-        console.log(results.nutrition.nutrients[1].name)
+
+       
+
         props.setProduct(results);
+      }).then(() => {
+        props.handleClose();
       })
       .catch((error) => console.log(error));
   };
