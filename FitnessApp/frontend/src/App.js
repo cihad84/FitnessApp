@@ -8,35 +8,9 @@ import Test from "./components/Test.js";
 function App() {
   const [open, setOpen] = React.useState(false);
   const [listRec, setListRec] = React.useState([]);
-  const [product, setProduct] = React.useState({"nutrition": {
-    "nutrients": [
-        {
-            "name": "Fat",
-            "amount": 4,
-            "unit": "g",
-            "percentOfDailyNeeds": 6.15
-        },
-        {
-            "name": "Protein",
-            "amount": 10,
-            "unit": "g",
-            "percentOfDailyNeeds": 20
-        },
-        {
-            "name": "Calories",
-            "amount": 200,
-            "unit": "cal",
-            "percentOfDailyNeeds": 10
-        },
-        {
-            "name": "Carbohydrates",
-            "amount": 26,
-            "unit": "g",
-            "percentOfDailyNeeds": 9.45
-        },
-    ]}});
+  const [selectedIndex, setSelectedIndex] = React.useState(["products", 1]);
+  const [product, setProduct] = React.useState({});
   const handleOpen = (data) => {
-    console.log("this is data", data);
     setListRec(data.results);
     setOpen(true);
   };
@@ -45,14 +19,15 @@ function App() {
   return (
     <div className="App">
       <Nav></Nav>
-      <Search handleOpen={handleOpen}></Search>
+      <Search selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} handleOpen={handleOpen}></Search>
       <Modal
         setProduct={setProduct}
         handleOpen={handleOpen}
         handleClose={handleClose}
         open={open}
         listRec={listRec}
-      ></Modal>
+        selectedIndex={selectedIndex}
+      ></Modal >
       <Test product={product}></Test>
     </div>
   );

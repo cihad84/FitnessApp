@@ -5,22 +5,33 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Button from "@mui/material/Button";
+import "../styles/test.css";
 
 function Test(props) {
-  const nutrientRows = [
-    { name: "Calories", value: props.product.calories },
-    { name: "Total Fat", value: 10 },
-    { name: "Saturated Fat", value: 10 },
-    { name: "Trans Fat", value: 20 },
-    { name: "Cholesterol", value: 30 },
-    { name: "Sodium", value: 40 },
-    { name: "Total Carbohydrates", value: 500 },
-    { name: "Dietary Fiber", value: 5 },
-    { name: "Total Sugars", value: 20 },
-    { name: "Protein", value: 20 },
-  ];
-
-  return (
+  if (props.product.nutrition === undefined) {
+    return (
+      <div className="main">
+      <div className="container">
+        <Typography variant="h4" align="center" gutterBottom>
+          Welcome to My Fitness App
+        </Typography>
+        <Typography variant="subtitle1" align="center" gutterBottom>
+          Get fit and healthy with our easy-to-use fitness app.
+        </Typography>
+        <Button
+          variant="contained"
+          size="large"
+          className="button"
+          href="#"
+        >
+          Get started
+        </Button>
+      </div>
+    </div>
+    )
+  } else {
+    return (
     <TableContainer>
       <Table size="small">
         <TableHead>
@@ -29,7 +40,6 @@ function Test(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {console.log(props.product)}
           {props.product.nutrition.nutrients.map((vitamin) => (
             <TableRow key={vitamin.name}>
               <TableCell>{vitamin.name}</TableCell>
@@ -43,6 +53,8 @@ function Test(props) {
       </Typography>
     </TableContainer>
   );
+  }
+
 }
 
 export default Test;

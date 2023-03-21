@@ -14,10 +14,11 @@ import Box from "@mui/material/Box";
 function InputWithButton(props) {
   const [searchInput, setSearchInput] = useState("");
   const [open, setOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState(["Products", 1]);
+
 
   const handleListItemClick = (event, index, name) => {
-    setSelectedIndex([name, index]);
+    setOpen(false);
+    props.setSelectedIndex([name, index]);
   };
 
   const handleClick = () => {
@@ -34,25 +35,45 @@ function InputWithButton(props) {
       apiKey: "28e7c85c777e479abf6e8145a94ffece",
       query: searchInput,
     };
-    fetch(
-      `https://api.spoonacular.com/food/products/suggest?apiKey=${data.apiKey}&query=${searchInput}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        props.handleOpen(result);
-      })
-      .catch((error) => console.log(error));
+    if (props.selectedIndex[1] === 1) {
+      fetch(
+            `https://api.spoonacular.com/food/products/suggest?apiKey=${data.apiKey}&query=${searchInput}`
+          )
+            .then((response) => {
+              return response.json();
+            })
+            .then((result) => {
+              props.handleOpen(result);
+            })
+            .catch((error) => console.log(error));
 
-    console.log(searchInput);
+
+    }
+    else {
+
+      fetch(
+        `https://api.spoonacular.com/food/ingredients/search?apiKey=${data.apiKey}&query=${searchInput}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+
+          for (let i = 0; i < result.results.length; i++) {
+            result.results[i]['title'] = result.results[i]['name'];
+          }
+          props.handleOpen(result);
+        })
+        .catch((error) => console.log(error));
+    }
+
   };
 
   return (
     <div className="root">
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={0} direction="row" justifyContent="center">
-          <Grid item xs={3} justifyContent="center" alignItems="center">
+          <Grid container xs={3} justifyContent="center" alignItems="center">
             <List
               sx={{ width: "100%", maxWidth: 200 }}
               component="nav"
@@ -68,13 +89,13 @@ function InputWithButton(props) {
               }
             >
               <ListItemButton onClick={handleClick}>
-                <ListItemText primary={selectedIndex[0]} />
+                <ListItemText primary={props.selectedIndex[0]} />
                 {open ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItemButton
-                    selected={selectedIndex[1] === 1}
+                    selected={props.selectedIndex[1] === 1}
                     onClick={(event) =>
                       handleListItemClick(event, 1, "Products")
                     }
@@ -83,7 +104,7 @@ function InputWithButton(props) {
                     <ListItemText primary="Products" />
                   </ListItemButton>
                   <ListItemButton
-                    selected={selectedIndex[1] === 2}
+                    selected={props.selectedIndex[1] === 2}
                     onClick={(event) =>
                       handleListItemClick(event, 2, "Ingredients")
                     }
@@ -95,7 +116,7 @@ function InputWithButton(props) {
               </Collapse>
             </List>
           </Grid>
-          <Grid item xs={4} justifyContent="center" alignItems="center">
+          <Grid container xs={4} justifyContent="center" alignItems="center">
             <TextField
               className="input"
               label={props.label}
@@ -103,8 +124,10 @@ function InputWithButton(props) {
               onChange={inputHandler}
             />
           </Grid>
-          <Grid item xs={4} justifyContent="center" alignItems="center">
+          <Grid container xs={4} justifyContent="center" alignItems="center">
             <Button
+              sx={{height: 40,
+              position: 'bottom'}}
               variant="contained"
               color="primary"
               onClick={handleButtonClick}
@@ -112,6 +135,10 @@ function InputWithButton(props) {
               Submit
             </Button>
           </Grid>
+
+
+
+
         </Grid>
       </Box>
     </div>

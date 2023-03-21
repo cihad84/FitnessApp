@@ -25,23 +25,43 @@ const style = {
 
 export default function BasicModal(props) {
   const handleClick = (event) => {
-    console.log(event.target.parentNode.id);
     let data = { apiKey: "28e7c85c777e479abf6e8145a94ffece" };
-    fetch(
-      `https://api.spoonacular.com/food/products/${event.target.parentNode.id}?apiKey=${data.apiKey}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((results) => {
 
-       
+    if (props.selectedIndex[1] === 1) {
+      fetch(
+        `https://api.spoonacular.com/food/products/${event.target.parentNode.id}?apiKey=${data.apiKey}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((results) => {
 
-        props.setProduct(results);
-      }).then(() => {
-        props.handleClose();
-      })
-      .catch((error) => console.log(error));
+
+
+          props.setProduct(results);
+        }).then(() => {
+          props.handleClose();
+        })
+        .catch((error) => console.log(error));
+    }
+    else {
+      fetch(
+        `https://api.spoonacular.com/food/ingredients/${event.target.parentNode.id}/information?apiKey=${data.apiKey}&amount=1`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((results) => {
+
+
+
+          props.setProduct(results);
+        }).then(() => {
+          props.handleClose();
+        })
+        .catch((error) => console.log(error));
+    }
+
   };
 
   return (
