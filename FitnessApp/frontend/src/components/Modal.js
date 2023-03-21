@@ -35,16 +35,13 @@ export default function BasicModal(props) {
           return response.json();
         })
         .then((results) => {
-
-
-
           props.setProduct(results);
-        }).then(() => {
+        })
+        .then(() => {
           props.handleClose();
         })
         .catch((error) => console.log(error));
-    }
-    else {
+    } else {
       fetch(
         `https://api.spoonacular.com/food/ingredients/${event.target.parentNode.id}/information?apiKey=${data.apiKey}&amount=1`
       )
@@ -52,16 +49,13 @@ export default function BasicModal(props) {
           return response.json();
         })
         .then((results) => {
-
-
-
           props.setProduct(results);
-        }).then(() => {
+        })
+        .then(() => {
           props.handleClose();
         })
         .catch((error) => console.log(error));
     }
-
   };
 
   return (

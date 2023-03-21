@@ -15,7 +15,6 @@ function InputWithButton(props) {
   const [searchInput, setSearchInput] = useState("");
   const [open, setOpen] = React.useState(false);
 
-
   const handleListItemClick = (event, index, name) => {
     setOpen(false);
     props.setSelectedIndex([name, index]);
@@ -37,20 +36,16 @@ function InputWithButton(props) {
     };
     if (props.selectedIndex[1] === 1) {
       fetch(
-            `https://api.spoonacular.com/food/products/suggest?apiKey=${data.apiKey}&query=${searchInput}`
-          )
-            .then((response) => {
-              return response.json();
-            })
-            .then((result) => {
-              props.handleOpen(result);
-            })
-            .catch((error) => console.log(error));
-
-
-    }
-    else {
-
+        `https://api.spoonacular.com/food/products/suggest?apiKey=${data.apiKey}&query=${searchInput}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          props.handleOpen(result);
+        })
+        .catch((error) => console.log(error));
+    } else {
       fetch(
         `https://api.spoonacular.com/food/ingredients/search?apiKey=${data.apiKey}&query=${searchInput}`
       )
@@ -58,15 +53,13 @@ function InputWithButton(props) {
           return response.json();
         })
         .then((result) => {
-
           for (let i = 0; i < result.results.length; i++) {
-            result.results[i]['title'] = result.results[i]['name'];
+            result.results[i]["title"] = result.results[i]["name"];
           }
           props.handleOpen(result);
         })
         .catch((error) => console.log(error));
     }
-
   };
 
   return (
@@ -126,8 +119,7 @@ function InputWithButton(props) {
           </Grid>
           <Grid container xs={4} justifyContent="center" alignItems="center">
             <Button
-              sx={{height: 40,
-              position: 'bottom'}}
+              sx={{ height: 40, position: "bottom" }}
               variant="contained"
               color="primary"
               onClick={handleButtonClick}
@@ -135,10 +127,6 @@ function InputWithButton(props) {
               Submit
             </Button>
           </Grid>
-
-
-
-
         </Grid>
       </Box>
     </div>
